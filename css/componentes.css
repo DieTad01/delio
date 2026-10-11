@@ -1,0 +1,439 @@
+/* =========================================================
+   componentes.css — piezas que se repiten
+   Botones, menú, carrusel, mosaico de servicio, cartel de
+   proyecto, selector, filas y formulario.
+   ========================================================= */
+
+/* ---------- Botones ---------- */
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: var(--linea) solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--negro);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.boton--texto {
+  text-decoration: underline;
+  text-decoration-thickness: var(--linea);
+  text-underline-offset: 6px;
+}
+
+.boton--texto:hover {
+  text-decoration-thickness: 3px;
+}
+
+.boton--marco {
+  border-color: var(--negro);
+}
+
+.boton--marco:hover {
+  background: var(--negro);
+  color: var(--fondo);
+}
+
+.boton--lleno {
+  border-color: var(--negro);
+  background: var(--negro);
+  color: var(--fondo);
+}
+
+.boton--lleno:hover {
+  background: transparent;
+  color: var(--negro);
+}
+
+.boton--ancho {
+  width: 100%;
+}
+
+/* ---------- Menú ---------- */
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  padding: 22px 10px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* ---------- Carrusel ----------
+   La pista se desliza sola (scroll horizontal del navegador);
+   los botones solo la empujan. Así funciona con dedo, rueda y teclado. */
+
+.carrusel {
+  --mosaico: clamp(232px, 29vw, 372px);   /* ancho de cada mosaico */
+  --imagen: var(--mosaico);               /* alto de su imagen; sirve para centrar las flechas */
+  --cerca: 40px;                          /* franja invisible arriba y abajo que cuenta como "cerca" */
+  position: relative;
+  /* El relleno agranda la zona que detecta el mouse; el margen negativo
+     evita que ese relleno empuje lo que está arriba y abajo. */
+  padding-block: var(--cerca);
+  margin-block: calc(var(--cerca) * -1);
+}
+
+.carrusel--carteles {
+  --mosaico: clamp(280px, 29vw, 400px);
+  --imagen: calc(var(--mosaico) * 9 / 16);
+}
+
+.carrusel__pista {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--mosaico);
+  gap: 15px;
+  padding-inline: var(--margen);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--margen);
+  scrollbar-width: none;
+}
+
+.carrusel__pista::-webkit-scrollbar {
+  display: none;
+}
+
+.carrusel__pista > li {
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .carrusel__pista {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Carrusel que se desliza solo (js/carrusel.js le pone esta clase): sin "imán"
+   ni animación del CSS, porque el script mueve la pista pixel por pixel. */
+.carrusel--continuo .carrusel__pista {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
+.carrusel__control {
+  position: absolute;
+  top: calc(var(--cerca) + var(--imagen) / 2 - 24px);
+  display: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--negro);
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Los botones solo aparecen si hay JavaScript y un puntero fino (mouse);
+   con el dedo se desliza y los botones estorbarían. */
+@media (hover: hover) and (pointer: fine) {
+  .con-js .carrusel__control {
+    display: grid;
+  }
+}
+
+.carrusel__control::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid;
+  border-right: 2px solid;
+}
+
+.carrusel__control--previo {
+  left: var(--margen);
+}
+
+.carrusel__control--previo::before {
+  transform: translateX(2px) rotate(-135deg);
+}
+
+.carrusel__control--siguiente {
+  right: var(--margen);
+}
+
+.carrusel__control--siguiente::before {
+  transform: translateX(-2px) rotate(45deg);
+}
+
+.carrusel__control:focus-visible {
+  outline-color: #fff;
+  outline-offset: -6px;
+}
+
+.carrusel__cuenta {
+  min-height: 1.5em;
+  margin-top: 16px;
+  padding-inline: var(--margen);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* ---------- Mosaico de servicio ---------- */
+
+.servicio {
+  display: block;
+  text-decoration: none;
+}
+
+.servicio__senal {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--fondo-hundido);
+}
+
+.servicio__numero {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  z-index: 1;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.servicio__nombre {
+  margin-top: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.servicio:hover .servicio__nombre {
+  text-decoration: underline;
+  text-decoration-thickness: var(--linea);
+  text-underline-offset: 4px;
+}
+
+.servicio__texto {
+  max-width: 34ch;
+  margin-top: 2px;
+  font-size: 0.875rem;
+}
+
+/* ---------- Señal ----------
+   js/ondas.js mete un <svg class="senal"> en cada [data-onda].
+   El dibujo trae dos vueltas idénticas y mide el doble de ancho:
+   al recorrerlo media anchura vuelve a quedar igual, y por eso
+   la animación se puede repetir sin que se note el salto. */
+
+.senal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+}
+
+.senal path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+@keyframes correr {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Todas las señales de un carrusel corren juntas cuando el mouse se acerca
+   (o se llega con el teclado). En pantallas táctiles no hay "acercarse":
+   ahí js/carrusel.js pone la clase .a-la-vista cuando el carrusel está en pantalla. */
+@media (prefers-reduced-motion: no-preference) {
+  .carrusel:hover .senal,
+  .carrusel:focus-within .senal,
+  .carrusel.a-la-vista .senal {
+    animation: correr 3.2s linear infinite;
+  }
+}
+
+/* ---------- Cartel de proyecto ---------- */
+
+.cartel__imagen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  padding: 12px;
+  background: var(--negro);
+  color: var(--fondo);
+}
+
+.cartel__imagen .senal {
+  top: 14%;
+  height: 56%;
+}
+
+.cartel__tipo,
+.cartel__titulo {
+  position: relative;
+  z-index: 1;
+}
+
+.cartel__tipo {
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.cartel__titulo {
+  font-size: clamp(1.125rem, 1.9vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.cartel__pie {
+  padding: 12px;
+  border-top: var(--linea) solid var(--fondo);
+  background: var(--negro);
+  color: var(--fondo);
+  font-size: 0.875rem;
+}
+
+.cartel__texto {
+  max-width: 44ch;
+  margin-top: 12px;
+  font-size: 0.875rem;
+}
+
+/* ---------- Selector ---------- */
+
+.selector {
+  position: relative;
+  border-block: var(--linea) solid var(--tinta);
+}
+
+.selector select {
+  width: 100%;
+  height: 48px;
+  padding: 0 44px 0 16px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.selector select:focus-visible {
+  outline-offset: -2px;
+}
+
+.selector option {
+  background: var(--fondo);
+  color: var(--tinta);
+}
+
+.selector::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* ---------- Filas ---------- */
+
+.fila {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
+  gap: 2px 24px;
+  padding: 12px 0;
+  border-bottom: var(--linea) solid var(--tinta);
+}
+
+.fila dt {
+  font-weight: 700;
+}
+
+/* ---------- Formulario ---------- */
+
+.formulario {
+  display: grid;
+  gap: 16px;
+}
+
+.campo {
+  display: grid;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.campo__opcional {
+  font-weight: 400;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  border: var(--linea) solid var(--tinta);
+  border-radius: 0;
+  background: var(--fondo-hundido);
+}
+
+.campo textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.campo option {
+  background: var(--fondo);
+  color: var(--tinta);
+}
+
+.formulario__estado {
+  font-weight: 700;
+  text-align: center;
+}
+
+.formulario__estado:empty {
+  display: none;
+}
+
+.formulario__nota {
+  color: var(--tinta-suave);
+  font-size: 0.875rem;
+  text-align: center;
+  text-wrap: balance;
+}

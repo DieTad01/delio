@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mapa del sitio: la lista de páginas que los buscadores deben conocer.
+     Si agregas una página, agrega aquí su <url>. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://delioph.tech/</loc>
+    <lastmod>2026-10-11</lastmod>
+  </url>
+  <url>
+    <loc>https://delioph.tech/aviso-de-privacidad.html</loc>
+    <lastmod>2026-10-11</lastmod>
+  </url>
+</urlset>

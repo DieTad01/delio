@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Lo que sale en la pestaña y como título azul en Google -->
+  <title>Delio | Automatización, páginas web, redes y cámaras en León, Gto.</title>
+  <!-- El texto gris que Google muestra debajo del título -->
+  <meta name="description" content="Automatización con n8n, programación a la medida, redes WiFi, cámaras de seguridad, instalación de programas, mantenimiento e impresión 3D para negocios en León, Guanajuato.">
+  <meta name="theme-color" content="#a0a084">
+
+  <!-- La dirección oficial de esta página, para que los buscadores no la cuenten dos veces -->
+  <link rel="canonical" href="https://delioph.tech/">
+
+  <!-- Open Graph: la tarjeta (título, texto e imagen) que aparece al pegar el enlace en WhatsApp, Facebook, etc. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Delio">
+  <meta property="og:url" content="https://delioph.tech/">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:title" content="Delio | Taller digital en León, Guanajuato">
+  <meta property="og:description" content="Automatizo tareas, programo sistemas e instalo y mantengo el equipo de tu negocio.">
+  <meta property="og:image" content="https://delioph.tech/img/compartir.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Delio, taller digital en León, Guanajuato">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/icono-180.png">
+
+  <!-- Datos del negocio en el formato que leen los buscadores (schema.org).
+       Es la única excepción a "nada escrito dentro del HTML": no es código que se
+       ejecute, son datos, y Google solo los toma en cuenta si vienen en la página. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Delio",
+    "description": "Automatización con n8n, programación a la medida, redes WiFi, cámaras de seguridad, instalación de programas, mantenimiento e impresión 3D.",
+    "url": "https://delioph.tech/",
+    "image": "https://delioph.tech/img/compartir.png",
+    "logo": "https://delioph.tech/img/icono-180.png",
+    "telephone": "+524793255948",
+    "email": "dietadhdez@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "León",
+      "addressRegion": "Guanajuato",
+      "addressCountry": "MX"
+    },
+    "areaServed": "León, Guanajuato"
+  }
+  </script>
+
+  <!-- CSS: cada archivo tiene una sola responsabilidad (ver README.md) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/secciones.css">
+
+  <!-- JS: arranque.js va primero y sin "defer" para que la página sepa desde el inicio que hay JavaScript -->
+  <script src="js/arranque.js"></script>
+  <script src="js/ondas.js" defer></script>
+  <script src="js/carrusel.js" defer></script>
+  <script src="js/detalle.js" defer></script>
+  <script src="js/contacto.js" defer></script>
+</head>
+<body>
+
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <nav class="nav" aria-label="Secciones">
+      <a href="#servicios">Servicios</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#detalle">Qué incluye</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="nav nav--directo">
+      <a href="https://wa.me/524793255948" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:dietadhdez@gmail.com">Correo</a>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ============ PORTADA ============ -->
+    <section class="portada" aria-labelledby="marca">
+      <h1 class="marca" id="marca"><img src="img/logo-delio.svg" alt="Delio" width="360" height="126"></h1>
+      <canvas class="portada__onda" data-onda-portada aria-hidden="true"></canvas>
+      <p class="portada__lema">Taller digital en León, Guanajuato</p>
+      <p class="portada__texto">Automatizo tareas, programo sistemas e instalo y mantengo el equipo de tu negocio.</p>
+      <div class="portada__acciones">
+        <a class="boton boton--marco" href="#contacto">Pide tu cotización</a>
+        <a class="boton boton--texto" href="#servicios">Ver servicios</a>
+      </div>
+    </section>
+
+    <!-- ============ SERVICIOS ============ -->
+    <section class="seccion" id="servicios" aria-labelledby="titulo-servicios">
+      <h2 class="seccion__titulo" id="titulo-servicios">Servicios</h2>
+
+      <!-- data-carrusel-auto: avanza solo y da la vuelta sin fin (js/carrusel.js) -->
+      <div class="carrusel" data-carrusel data-carrusel-auto>
+        <ul class="carrusel__pista" data-carrusel-pista>
+          <li>
+            <a class="servicio" href="#incluye-n8n" data-detalle="n8n">
+              <span class="servicio__senal" data-onda="pulsos"><span class="servicio__numero">01</span></span>
+              <h3 class="servicio__nombre">Automatización con n8n</h3>
+              <p class="servicio__texto">Recordatorios, reportes y capturas que se hacen solos.</p>
+            </a>
+          </li>
+          <li>
+            <a class="servicio" href="#incluye-programacion" data-detalle="programacion">
+              <span class="servicio__senal" data-onda="cuadrada"><span class="servicio__numero">02</span></span>
+              <h3 class="servicio__nombre">Programación</h3>
+              <p class="servicio__texto">Páginas, sistemas, APIs y scripts a tu medida.</p>
+            </a>
+          </li>
+          <li>
+            <a class="servicio" href="#incluye-wifi" data-detalle="wifi">
+              <span class="servicio__senal" data-onda="am"><span class="servicio__numero">03</span></span>
+              <h3 class="servicio__nombre">WiFi y access points</h3>
+              <p class="servicio__texto">Access points instalados y configurados, con redes separadas.</p>
+            </a>
+          </li>
+          <li>
+            <a class="servicio" href="#incluye-camaras" data-detalle="camaras">
+              <span class="servicio__senal" data-onda="sierra"><span class="servicio__numero">04</span></span>
+              <h3 class="servicio__nombre">Cámaras de seguridad</h3>
+              <p class="servicio__texto">Instalación completa y acceso desde tu celular.</p>
+            </a>
+          </li>
+          <li>
+            <a class="servicio" href="#incluye-programas" data-detalle="programas">
+              <span class="servicio__senal" data-onda="amortiguada"><span class="servicio__numero">05</span></span>
+              <h3 class="servicio__nombre">Instalación de programas</h3>
+              <p class="servicio__texto">Office y software de trabajo, listos en cada equipo.</p>
+            </a>
+          </li>
+          <li>
+            <a class="servicio" href="#incluye-mantenimiento" data-detalle="mantenimiento">
+              <span class="servicio__senal" data-onda="seno"><span class="servicio__numero">06</span></span>
+              <h3 class="servicio__nombre">Mantenimiento</h3>
+              <p class="servicio__texto">Preventivo, por visita o con póliza mensual.</p>
+            </a>
+          </li>
+          <li>
+            <a class="servicio" href="#incluye-impresion3d" data-detalle="impresion3d">
+              <span class="servicio__senal" data-onda="triangular"><span class="servicio__numero">07</span></span>
+              <h3 class="servicio__nombre">Impresión 3D</h3>
+              <p class="servicio__texto">Piezas en PLA, PETG o TPU, con diseño si lo necesitas.</p>
+            </a>
+          </li>
+        </ul>
+
+        <button class="carrusel__control carrusel__control--previo" type="button" data-carrusel-previo aria-label="Servicios anteriores"></button>
+        <button class="carrusel__control carrusel__control--siguiente" type="button" data-carrusel-siguiente aria-label="Más servicios"></button>
+        <p class="carrusel__cuenta" data-carrusel-cuenta aria-hidden="true"></p>
+      </div>
+
+      <div class="seccion__cierre">
+        <a class="boton boton--texto" href="#contacto">Cotizar un servicio</a>
+      </div>
+    </section>
+
+    <!-- ============ PROYECTOS ============ -->
+    <section class="seccion" id="proyectos" aria-labelledby="titulo-proyectos">
+      <h2 class="seccion__titulo" id="titulo-proyectos">Proyectos</h2>
+
+      <div class="carrusel carrusel--carteles" data-carrusel data-carrusel-auto>
+        <ul class="carrusel__pista" data-carrusel-pista>
+          <li>
+            <article class="cartel">
+              <div class="cartel__imagen" data-onda="pulsos">
+                <p class="cartel__tipo">Automatización</p>
+                <h3 class="cartel__titulo">Bot de SuperConta</h3>
+              </div>
+              <p class="cartel__pie">n8n · WhatsApp</p>
+              <p class="cartel__texto">Bot de automatización fiscal que atiende por WhatsApp, hecho en n8n.</p>
+            </article>
+          </li>
+          <li>
+            <article class="cartel">
+              <div class="cartel__imagen" data-onda="cuadrada">
+                <p class="cartel__tipo">Sitio web</p>
+                <h3 class="cartel__titulo">Página de MII</h3>
+              </div>
+              <p class="cartel__pie">HTML · CSS · JavaScript · PHP</p>
+              <p class="cartel__texto">Sitio de MII, Mantenimiento Industrial e Informático: servicios, clientes y un formulario de cotización que llega por correo.</p>
+            </article>
+          </li>
+          <li>
+            <article class="cartel">
+              <div class="cartel__imagen" data-onda="am">
+                <p class="cartel__tipo">Sitio web</p>
+                <h3 class="cartel__titulo">Diego Rodríguez Autos</h3>
+              </div>
+              <p class="cartel__pie">Sitio web</p>
+              <p class="cartel__texto">Página web de Diego Rodríguez Autos.</p>
+            </article>
+          </li>
+          <li>
+            <article class="cartel">
+              <div class="cartel__imagen" data-onda="triangular">
+                <p class="cartel__tipo">Impresión 3D</p>
+                <h3 class="cartel__titulo">Impresiones para PBIT</h3>
+              </div>
+              <p class="cartel__pie">Impresión 3D · 30 piezas</p>
+              <p class="cartel__texto">Lote de 30 piezas impresas en 3D: 10 de PBIT y 20 de MII.</p>
+            </article>
+          </li>
+        </ul>
+
+        <button class="carrusel__control carrusel__control--previo" type="button" data-carrusel-previo aria-label="Proyectos anteriores"></button>
+        <button class="carrusel__control carrusel__control--siguiente" type="button" data-carrusel-siguiente aria-label="Más proyectos"></button>
+        <p class="carrusel__cuenta" data-carrusel-cuenta aria-hidden="true"></p>
+      </div>
+
+      <div class="seccion__cierre">
+        <a class="boton boton--texto" href="#contacto">Platícame el tuyo</a>
+      </div>
+    </section>
+
+    <!-- ============ QUÉ INCLUYE ============
+         Sin JavaScript se ven todas las listas, una debajo de otra.
+         Con JavaScript (js/detalle.js) el selector muestra una a la vez. -->
+    <section class="seccion" id="detalle" aria-labelledby="titulo-detalle">
+      <h2 class="seccion__titulo" id="titulo-detalle">Qué incluye</h2>
+
+      <div class="detalle">
+        <div class="selector">
+          <label class="oculto-visual" for="filtro-servicio">Elige un servicio</label>
+          <select id="filtro-servicio" data-detalle-filtro>
+            <option value="n8n">Automatización con n8n</option>
+            <option value="programacion">Programación</option>
+            <option value="wifi">WiFi y access points</option>
+            <option value="camaras">Cámaras de seguridad</option>
+            <option value="programas">Instalación de programas</option>
+            <option value="mantenimiento">Mantenimiento</option>
+            <option value="impresion3d">Impresión 3D</option>
+          </select>
+        </div>
+
+        <article class="incluye" id="incluye-n8n" data-detalle-panel="n8n">
+          <h3 class="incluye__titulo">Automatización con n8n</h3>
+          <dl class="filas">
+            <div class="fila"><dt>Flujos a la medida</dt><dd>Básicos, intermedios o avanzados, según lo que haya que conectar.</dd></div>
+            <div class="fila"><dt>Integraciones</dt><dd>WhatsApp, Google Sheets, correo y las apps que ya usas.</dd></div>
+            <div class="fila"><dt>Instalación en tu servidor</dt><dd>n8n corriendo en tu propio equipo o VPS.</dd></div>
+            <div class="fila"><dt>Soporte mensual</dt><dd>Vigilo el flujo y lo ajusto cuando algo cambia.</dd></div>
+            <div class="fila"><dt>Mejoras</dt><dd>Si ya tienes un flujo, solo se cobra la mejora.</dd></div>
+          </dl>
+          <div class="incluye__accion">
+            <a class="boton boton--marco" href="#contacto" data-servicio="Automatización con n8n">Cotizar automatización</a>
+          </div>
+        </article>
+
+        <article class="incluye" id="incluye-programacion" data-detalle-panel="programacion">
+          <h3 class="incluye__titulo">Programación</h3>
+          <dl class="filas">
+            <div class="fila"><dt>Landing pages y sitios</dt><dd>Páginas rápidas, con o sin administrador de contenido.</dd></div>
+            <div class="fila"><dt>Sistemas y aplicaciones</dt><dd>Control de clientes, expedientes o inventarios, hecho para tu forma de trabajar.</dd></div>
+            <div class="fila"><dt>APIs y scripts</dt><dd>Para conectar sistemas o quitarte una tarea repetitiva.</dd></div>
+            <div class="fila"><dt>Mejoras a lo que ya tienes</dt><dd>Corrección de errores, funciones nuevas, diseño y rendimiento.</dd></div>
+          </dl>
+          <div class="incluye__accion">
+            <a class="boton boton--marco" href="#contacto" data-servicio="Programación">Cotizar programación</a>
+          </div>
+        </article>
+
+        <article class="incluye" id="incluye-wifi" data-detalle-panel="wifi">
+          <h3 class="incluye__titulo">WiFi y access points</h3>
+          <dl class="filas">
+            <div class="fila"><dt>Levantamiento</dt><dd>Reviso el lugar para decidir dónde va cada equipo.</dd></div>
+            <div class="fila"><dt>Instalación</dt><dd>Montaje de access points, cableado y canaleta.</dd></div>
+            <div class="fila"><dt>Configuración</dt><dd>Nombre de la red, contraseñas y ajustes de cada equipo.</dd></div>
+            <div class="fila"><dt>Redes separadas</dt><dd>Invitados, oficina y cámaras, cada quien por su lado (VLAN).</dd></div>
+            <div class="fila"><dt>Soporte mensual</dt><dd>Opcional, para que la red no se quede sin atención.</dd></div>
+          </dl>
+          <div class="incluye__accion">
+            <a class="boton boton--marco" href="#contacto" data-servicio="WiFi y access points">Cotizar WiFi</a>
+          </div>
+        </article>
+
+        <article class="incluye" id="incluye-camaras" data-detalle-panel="camaras">
+          <h3 class="incluye__titulo">Cámaras de seguridad</h3>
+          <dl class="filas">
+            <div class="fila"><dt>Instalación por cámara</dt><dd>Montaje, conectores y ajuste de ángulo.</dd></div>
+            <div class="fila"><dt>Grabador</dt><dd>Configurado para guardar y revisar las grabaciones.</dd></div>
+            <div class="fila"><dt>Acceso desde el celular</dt><dd>Ves tus cámaras desde donde estés.</dd></div>
+            <div class="fila"><dt>Equipo</dt><dd>Te cotizo las cámaras y el grabador, o instalo los que ya compraste.</dd></div>
+            <div class="fila"><dt>Soporte mensual</dt><dd>Opcional.</dd></div>
+          </dl>
+          <div class="incluye__accion">
+            <a class="boton boton--marco" href="#contacto" data-servicio="Cámaras de seguridad">Cotizar cámaras</a>
+          </div>
+        </article>
+
+        <article class="incluye" id="incluye-programas" data-detalle-panel="programas">
+          <h3 class="incluye__titulo">Instalación de programas</h3>
+          <dl class="filas">
+            <div class="fila"><dt>Office y software de trabajo</dt><dd>Instalados y listos para usarse en cada equipo.</dd></div>
+            <div class="fila"><dt>Licencias</dt><dd>Te cotizo las que hagan falta.</dd></div>
+            <div class="fila"><dt>En tu negocio</dt><dd>Voy a tu oficina o local a dejar los equipos listos.</dd></div>
+          </dl>
+          <div class="incluye__accion">
+            <a class="boton boton--marco" href="#contacto" data-servicio="Instalación de programas">Cotizar instalación</a>
+          </div>
+        </article>
+
+        <article class="incluye" id="incluye-mantenimiento" data-detalle-panel="mantenimiento">
+          <h3 class="incluye__titulo">Mantenimiento</h3>
+          <dl class="filas">
+            <div class="fila"><dt>Preventivo</dt><dd>Limpieza y revisión para que el equipo no falle.</dd></div>
+            <div class="fila"><dt>Impresoras</dt><dd>Mantenimiento por equipo.</dd></div>
+            <div class="fila"><dt>Red</dt><dd>Revisión de la red de tu oficina.</dd></div>
+            <div class="fila"><dt>Póliza mensual</dt><dd>Precio por equipo, con descuento por volumen.</dd></div>
+          </dl>
+          <div class="incluye__accion">
+            <a class="boton boton--marco" href="#contacto" data-servicio="Mantenimiento">Cotizar mantenimiento</a>
+          </div>
+        </article>
+
+        <article class="incluye" id="incluye-impresion3d" data-detalle-panel="impresion3d">
+          <h3 class="incluye__titulo">Impresión 3D</h3>
+          <dl class="filas">
+            <div class="fila"><dt>Materiales</dt><dd>PLA, PETG y TPU.</dd></div>
+            <div class="fila"><dt>Diseño y modelado</dt><dd>Si no tienes el archivo, lo modelo.</dd></div>
+            <div class="fila"><dt>Piezas a la medida</dt><dd>Una sola pieza o varias iguales.</dd></div>
+          </dl>
+          <div class="incluye__accion">
+            <a class="boton boton--marco" href="#contacto" data-servicio="Impresión 3D">Cotizar impresión</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============
+         El formulario no guarda nada: arma un mensaje y abre WhatsApp (js/contacto.js).
+         Sin JavaScript también funciona: el navegador manda el campo "text" a wa.me. -->
+    <section class="seccion" id="contacto" aria-labelledby="titulo-contacto">
+      <h2 class="seccion__titulo" id="titulo-contacto">Pide tu cotización</h2>
+      <p class="seccion__entrada">Cuéntame qué necesitas. Te contesta Diego Tadeo, directo por WhatsApp.</p>
+
+      <form class="formulario" action="https://wa.me/524793255948" method="get" target="_blank" rel="noopener" data-contacto>
+        <div class="campo">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" name="nombre" type="text" autocomplete="name" required>
+        </div>
+        <div class="campo">
+          <label for="negocio">Negocio o empresa <span class="campo__opcional">(opcional)</span></label>
+          <input id="negocio" name="negocio" type="text" autocomplete="organization">
+        </div>
+        <div class="campo">
+          <label for="servicio">Servicio</label>
+          <select id="servicio" name="servicio">
+            <option>Automatización con n8n</option>
+            <option>Programación</option>
+            <option>WiFi y access points</option>
+            <option>Cámaras de seguridad</option>
+            <option>Instalación de programas</option>
+            <option>Mantenimiento</option>
+            <option>Impresión 3D</option>
+            <option>Otro o no estoy seguro</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="mensaje">¿Qué necesitas?</label>
+          <textarea id="mensaje" name="text" rows="5" required></textarea>
+        </div>
+
+        <button class="boton boton--lleno boton--ancho" type="submit">Enviar por WhatsApp</button>
+        <p class="formulario__estado" data-contacto-estado role="status"></p>
+
+        <p class="formulario__nota">Tus datos solo se usan para responderte. Lee el <a href="aviso-de-privacidad.html">aviso de privacidad</a>.</p>
+        <p class="formulario__nota">Cotización válida por 15 días · 30% de anticipo y el resto a la entrega · 30 días de garantía en mano de obra.</p>
+        <p class="formulario__nota">¿Prefieres otro medio? Escribe a <a href="mailto:dietadhdez@gmail.com">dietadhdez@gmail.com</a> o llama al <a href="tel:+524793255948">479 325 5948</a>.</p>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="pie">
+    <p class="pie__marca"><img src="img/simbolo-delio.svg" alt="" width="28" height="28">Delio · Taller digital · León, Guanajuato</p>
+    <p><a href="aviso-de-privacidad.html">Aviso de privacidad</a> · © 2026 Delio</p>
+  </footer>
+
+</body>
+</html>

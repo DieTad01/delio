@@ -1,0 +1,9 @@
+# Archivos que Python crea al correr logo/generar_logo.py
+__pycache__/
+
+# Configuración local de Claude (solo sirve en esta PC)
+.claude/
+
+# Basura del sistema
+Thumbs.db
+.DS_Store

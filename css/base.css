@@ -1,0 +1,113 @@
+/* =========================================================
+   base.css — cimientos
+   Variables, reinicio y tipografía. Si quieres cambiar el
+   "look" de todo el sitio, casi siempre basta con tocar :root.
+   ========================================================= */
+
+:root {
+  /* Color: un solo fondo plano y tinta casi negra */
+  --fondo: #a0a084;
+  --fondo-hundido: #919175;   /* mosaicos y campos de formulario */
+  --tinta: #1e1e19;
+  --tinta-suave: #303028;     /* solo sobre --fondo; sobre --fondo-hundido pierde contraste */
+  --negro: #000;
+
+  /* Trazo: todas las líneas y marcos del sitio miden lo mismo */
+  --linea: 1.6px;
+
+  /* Tipografía: una sola familia, la jerarquía se hace con peso y tamaño */
+  --fuente: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+
+  /* Medidas */
+  --margen: clamp(16px, 3.2vw, 40px);     /* orilla lateral de la página */
+  --aire: clamp(72px, 10vw, 128px);       /* espacio entre secciones */
+  --ancho-lista: 836px;
+  --ancho-formulario: 560px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: var(--fuente);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+dl,
+dd,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: var(--linea);
+  text-underline-offset: 4px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--negro);
+  outline-offset: 3px;
+}
+
+/* Texto que solo leen los lectores de pantalla */
+.oculto-visual {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Enlace para saltar el menú con teclado: aparece al enfocarlo */
+.saltar {
+  position: absolute;
+  left: var(--margen);
+  top: -100px;
+  z-index: 10;
+  padding: 12px 16px;
+  background: var(--negro);
+  color: var(--fondo);
+  font-weight: 700;
+}
+
+.saltar:focus {
+  top: 12px;
+}

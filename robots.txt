@@ -1,0 +1,7 @@
+# Instrucciones para los buscadores (Google, Bing…).
+# Todo el sitio se puede leer; el mapa les dice qué páginas hay.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://delioph.tech/sitemap.xml

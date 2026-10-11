@@ -10,7 +10,7 @@
   --fondo-hundido: #919175;   /* mosaicos y campos de formulario */
   --tinta: #1e1e19;
   --tinta-suave: #303028;     /* solo sobre --fondo; sobre --fondo-hundido pierde contraste */
-  --negro: #000;
+  --fuerte: #000;             /* lo más marcado: botones, marcos y carteles */
 
   /* Trazo: todas las líneas y marcos del sitio miden lo mismo */
   --linea: 1.6px;
@@ -29,6 +29,17 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+/* Modo nocturno: los mismos dos colores, al revés. js/tema.js pone el atributo
+   data-tema="oscuro" en <html> y todo lo que usa estas variables cambia solo. */
+:root[data-tema="oscuro"] {
+  color-scheme: dark;
+  --fondo: #1b1b17;
+  --fondo-hundido: #27271f;
+  --tinta: #a0a084;
+  --tinta-suave: #8f8f76;
+  --fuerte: #a0a084;
 }
 
 html {
@@ -82,8 +93,14 @@ textarea {
 }
 
 :focus-visible {
-  outline: 2px solid var(--negro);
+  outline: 2px solid var(--fuerte);
   outline-offset: 3px;
+}
+
+/* Imágenes que tienen una versión para cada modo (el logo oscuro no se vería de noche) */
+:root:not([data-tema="oscuro"]) .solo-noche,
+:root[data-tema="oscuro"] .solo-dia {
+  display: none;
 }
 
 /* Texto que solo leen los lectores de pantalla */
@@ -103,7 +120,7 @@ textarea {
   top: -100px;
   z-index: 10;
   padding: 12px 16px;
-  background: var(--negro);
+  background: var(--fuerte);
   color: var(--fondo);
   font-weight: 700;
 }

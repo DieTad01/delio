@@ -160,7 +160,8 @@ html:not(.con-js) .selector {
   justify-content: space-between;
   gap: 4px 24px;
   margin-top: var(--aire);
-  padding: 24px var(--margen) 32px;
+  /* el espacio extra de abajo es para que el muelle no tape el texto del pie */
+  padding: 24px var(--margen) 88px;
   border-top: var(--linea) solid var(--tinta);
   font-size: 0.875rem;
   font-weight: 700;

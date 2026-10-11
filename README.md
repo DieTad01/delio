@@ -9,7 +9,7 @@ Página principal de una sola pantalla larga (portada, servicios, proyectos, qu�
 | HTML | `index.html`, `aviso-de-privacidad.html` | El contenido. Van en la raíz porque ahí los busca el servidor al entrar al dominio. |
 | CSS | `css/` | La apariencia. |
 | JavaScript | `js/` | El comportamiento. |
-| SVG | `img/` | El logotipo de la portada (`logo-delio.svg`), el símbolo del pie (`simbolo-delio.svg`) y el ícono de la pestaña (`favicon.svg`). |
+| Imágenes | `img/` | El logotipo y el símbolo en SVG, cada uno en dos colores (tinta para el día, `-caqui` para la noche), el ícono de la pestaña y las imágenes PNG para compartir el enlace. |
 | Nginx | `nginx/` | La configuración del servidor. No es parte de la página; se copia a `/etc/nginx/`. |
 | Para buscadores | `robots.txt`, `sitemap.xml` | Le dicen a Google y a Bing que pueden leer el sitio y qué páginas tiene. |
 | Python | `logo/` | El script que dibuja los logos, y los logos en SVG y PNG. Solo se usa en tu PC; el servidor no necesita Python. |
@@ -25,11 +25,12 @@ El HTML no trae estilos ni scripts escritos adentro: solo enlaza a los archivos 
 
 ### JavaScript
 
-- `arranque.js`: una línea que marca la página como "con JavaScript".
+- `arranque.js`: marca la página como "con JavaScript" y, si la persona ya había elegido el modo nocturno, lo aplica antes de que se pinte.
 - `ondas.js`: dibuja la onda de la portada y las señales de los mosaicos.
 - `carrusel.js`: hace que los carruseles de servicios y proyectos no tengan fin, se deslicen solos poco a poco y respondan a las flechas.
 - `detalle.js`: el selector de "Qué incluye".
 - `contacto.js`: arma el mensaje del formulario y abre WhatsApp.
+- `tema.js`: el botón de modo nocturno. Pone o quita `data-tema="oscuro"` en `<html>` y recuerda la elección en el navegador de la persona.
 
 Si JavaScript falla, la página sigue sirviendo: se ven todas las listas de "Qué incluye" una tras otra y el formulario manda el texto a WhatsApp de todos modos.
 
@@ -164,5 +165,6 @@ No hace falta reiniciar Nginx. Si no ves el cambio, recarga con Ctrl + F5: el na
 - **Agregar un proyecto:** copia un `<li>` completo del carrusel de proyectos en `index.html` y cambia sus textos.
 - **Cambiar la velocidad de los carruseles:** el número `VELOCIDAD` al inicio de `js/carrusel.js` (pixeles por segundo; más alto, más rápido). Para que un carrusel no avance solo, quítale el atributo `data-carrusel-auto` en `index.html`.
 - **Cambiar la señal de un mosaico:** el atributo `data-onda`. Las disponibles están en `js/ondas.js`: `seno`, `am`, `amortiguada`, `cuadrada`, `triangular`, `sierra`, `escalera`, `pulsos`, `latido`.
-- **Cambiar colores:** las variables `--fondo`, `--fondo-hundido` y `--tinta` en `css/base.css`.
-- **Cambiar el logo:** los tres SVG de `img/` salen de `generar_logo.py`, que está en la carpeta `logo/` junto con los PNG para usar fuera del sitio. Ahí se ajusta qué tan ondulado queda; después se copian los SVG nuevos a `img/` con los mismos nombres.
+- **Cambiar colores:** las variables de `css/base.css`. Hay dos juegos: el de `:root` (día) y el de `:root[data-tema="oscuro"]` (noche).
+- **Cambiar el mensaje del botón de WhatsApp:** está en el enlace del "muelle", al final de `index.html` y de `aviso-de-privacidad.html`, después de `?text=`. Los espacios se escriben `%20`.
+- **Cambiar el logo:** los SVG de `img/` salen de `generar_logo.py`, que está en la carpeta `logo/` junto con los PNG para usar fuera del sitio. Ahí se ajusta qué tan ondulado queda; después se copian los SVG nuevos a `img/` con los mismos nombres.

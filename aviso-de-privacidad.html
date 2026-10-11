@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="css/componentes.css">
   <link rel="stylesheet" href="css/secciones.css">
   <link rel="stylesheet" href="css/documento.css">
+
+  <script src="js/arranque.js"></script>
+  <script src="js/tema.js" defer></script>
 </head>
 <body>
 
@@ -86,9 +89,15 @@
   </main>
 
   <footer class="pie">
-    <p class="pie__marca"><img src="img/simbolo-delio.svg" alt="" width="28" height="28">Delio · Taller digital · León, Guanajuato</p>
+    <p class="pie__marca"><img class="solo-dia" src="img/simbolo-delio.svg" alt="" width="28" height="28"><img class="solo-noche" src="img/simbolo-delio-caqui.svg" alt="" width="28" height="28">Delio · Taller digital · León, Guanajuato</p>
     <p>© 2026 Delio</p>
   </footer>
+
+  <!-- Muelle: botones fijos en la esquina (modo nocturno y WhatsApp directo) -->
+  <div class="muelle">
+    <button class="muelle__boton muelle__boton--tema" type="button" data-tema-boton>Noche</button>
+    <a class="muelle__boton muelle__boton--whatsapp" href="https://wa.me/524793255948?text=Hola%20Diego%2C%20vi%20tu%20p%C3%A1gina%20y%20quiero%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener">WhatsApp</a>
+  </div>
 
 </body>
 </html>

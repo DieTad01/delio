@@ -96,7 +96,7 @@
 
   const pincel = lienzo.getContext('2d');
   const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const color = getComputedStyle(lienzo).color;
+  let color = getComputedStyle(lienzo).color;
 
   let ancho = 0;
   let alto = 0;
@@ -166,4 +166,10 @@
   }).observe(lienzo);
 
   sinMovimiento.addEventListener('change', arrancar);
+
+  // Al cambiar entre día y noche (js/tema.js avisa con este evento) la línea toma el color nuevo.
+  document.addEventListener('tema-cambiado', () => {
+    color = getComputedStyle(lienzo).color;
+    if (cuadro === null) dibujar(0);
+  });
 })();

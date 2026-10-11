@@ -15,7 +15,7 @@
   border: var(--linea) solid transparent;
   border-radius: 0;
   background: transparent;
-  color: var(--negro);
+  color: var(--fuerte);
   font-weight: 700;
   line-height: 1.2;
   text-align: center;
@@ -35,23 +35,23 @@
 }
 
 .boton--marco {
-  border-color: var(--negro);
+  border-color: var(--fuerte);
 }
 
 .boton--marco:hover {
-  background: var(--negro);
+  background: var(--fuerte);
   color: var(--fondo);
 }
 
 .boton--lleno {
-  border-color: var(--negro);
-  background: var(--negro);
+  border-color: var(--fuerte);
+  background: var(--fuerte);
   color: var(--fondo);
 }
 
 .boton--lleno:hover {
   background: transparent;
-  color: var(--negro);
+  color: var(--fuerte);
 }
 
 .boton--ancho {
@@ -75,6 +75,55 @@
 .nav a:hover {
   text-decoration: underline;
   text-underline-offset: 6px;
+}
+
+/* ---------- Muelle ----------
+   Los dos botones fijos de la esquina: modo nocturno y WhatsApp.
+   "fixed" los deja pegados a la pantalla aunque la página se deslice. */
+
+.muelle {
+  position: fixed;
+  right: var(--margen);
+  bottom: 16px;
+  z-index: 5;
+  display: flex;
+}
+
+.muelle__boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border: var(--linea) solid var(--fuerte);
+  border-radius: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.muelle__boton--tema {
+  background: var(--fondo);
+  color: var(--fuerte);
+}
+
+.muelle__boton--whatsapp,
+.muelle__boton--tema:hover {
+  background: var(--fuerte);
+  color: var(--fondo);
+}
+
+.muelle__boton--whatsapp:hover {
+  background: var(--fondo);
+  color: var(--fuerte);
+}
+
+/* Cambiar de modo necesita JavaScript; sin él, el botón no se muestra */
+html:not(.con-js) .muelle__boton--tema {
+  display: none;
 }
 
 /* ---------- Carrusel ----------
@@ -138,10 +187,11 @@
   width: 48px;
   height: 48px;
   padding: 0;
-  border: 0;
+  /* el marco del color del fondo la despega de los carteles, que son del mismo color que la flecha */
+  border: var(--linea) solid var(--fondo);
   border-radius: 0;
-  background: var(--negro);
-  color: #fff;
+  background: var(--fuerte);
+  color: var(--fondo);
   cursor: pointer;
 }
 
@@ -178,7 +228,7 @@
 }
 
 .carrusel__control:focus-visible {
-  outline-color: #fff;
+  outline-color: var(--fondo);
   outline-offset: -6px;
 }
 
@@ -283,7 +333,7 @@
   aspect-ratio: 16 / 9;
   overflow: hidden;
   padding: 12px;
-  background: var(--negro);
+  background: var(--fuerte);
   color: var(--fondo);
 }
 
@@ -313,7 +363,7 @@
 .cartel__pie {
   padding: 12px;
   border-top: var(--linea) solid var(--fondo);
-  background: var(--negro);
+  background: var(--fuerte);
   color: var(--fondo);
   font-size: 0.875rem;
 }

@@ -64,6 +64,7 @@
   <script src="js/carrusel.js" defer></script>
   <script src="js/detalle.js" defer></script>
   <script src="js/contacto.js" defer></script>
+  <script src="js/tema.js" defer></script>
 </head>
 <body>
 
@@ -86,7 +87,11 @@
 
     <!-- ============ PORTADA ============ -->
     <section class="portada" aria-labelledby="marca">
-      <h1 class="marca" id="marca"><img src="img/logo-delio.svg" alt="Delio" width="360" height="126"></h1>
+      <h1 class="marca" id="marca">
+        <!-- Dos versiones del logo: tinta para el día, caqui para la noche. El CSS muestra una sola. -->
+        <img class="solo-dia" src="img/logo-delio.svg" alt="Delio" width="360" height="126">
+        <img class="solo-noche" src="img/logo-delio-caqui.svg" alt="Delio" width="360" height="126">
+      </h1>
       <canvas class="portada__onda" data-onda-portada aria-hidden="true"></canvas>
       <p class="portada__lema">Taller digital en León, Guanajuato</p>
       <p class="portada__texto">Automatizo tareas, programo sistemas e instalo y mantengo el equipo de tu negocio.</p>
@@ -382,9 +387,15 @@
   </main>
 
   <footer class="pie">
-    <p class="pie__marca"><img src="img/simbolo-delio.svg" alt="" width="28" height="28">Delio · Taller digital · León, Guanajuato</p>
+    <p class="pie__marca"><img class="solo-dia" src="img/simbolo-delio.svg" alt="" width="28" height="28"><img class="solo-noche" src="img/simbolo-delio-caqui.svg" alt="" width="28" height="28">Delio · Taller digital · León, Guanajuato</p>
     <p><a href="aviso-de-privacidad.html">Aviso de privacidad</a> · © 2026 Delio</p>
   </footer>
+
+  <!-- Muelle: botones fijos en la esquina (modo nocturno y WhatsApp directo) -->
+  <div class="muelle">
+    <button class="muelle__boton muelle__boton--tema" type="button" data-tema-boton>Noche</button>
+    <a class="muelle__boton muelle__boton--whatsapp" href="https://wa.me/524793255948?text=Hola%20Diego%2C%20vi%20tu%20p%C3%A1gina%20y%20quiero%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener">WhatsApp</a>
+  </div>
 
 </body>
 </html>

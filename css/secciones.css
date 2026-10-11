@@ -37,6 +37,33 @@
   height: auto;
 }
 
+/* Logo animado (js/logo.js): el lienzo ocupa el lugar de la imagen, y la imagen
+   se esconde de la vista pero se queda en la página para que su "alt" siga
+   diciéndole a buscadores y lectores de pantalla que aquí dice Delio. */
+.marca--viva {
+  position: relative;
+}
+
+.marca__lienzo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 360 / 126;
+}
+
+.marca--viva img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Por si el lienzo no llegó a dibujarse estando en modo nocturno: la imagen es
+   oscura y no se vería sobre el fondo oscuro, así que se aclara con un filtro. */
+:root[data-tema="oscuro"] .marca:not(.marca--viva) img {
+  filter: invert(0.65);
+}
+
 .portada__onda {
   display: block;
   width: 100%;
@@ -99,8 +126,6 @@ html:not(.con-js) .portada__onda {
 }
 
 .seccion__cierre {
-  /* "relative" lo deja por encima de la franja invisible del carrusel, para que el enlace reciba el clic */
-  position: relative;
   display: flex;
   justify-content: center;
   margin-top: 28px;

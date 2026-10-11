@@ -61,6 +61,8 @@
   <!-- JS: arranque.js va primero y sin "defer" para que la página sepa desde el inicio que hay JavaScript -->
   <script src="js/arranque.js"></script>
   <script src="js/ondas.js" defer></script>
+  <script src="js/logo-puntos.js" defer></script>
+  <script src="js/logo.js" defer></script>
   <script src="js/carrusel.js" defer></script>
   <script src="js/detalle.js" defer></script>
   <script src="js/contacto.js" defer></script>
@@ -88,9 +90,9 @@
     <!-- ============ PORTADA ============ -->
     <section class="portada" aria-labelledby="marca">
       <h1 class="marca" id="marca">
-        <!-- Dos versiones del logo: tinta para el día, caqui para la noche. El CSS muestra una sola. -->
-        <img class="solo-dia" src="img/logo-delio.svg" alt="Delio" width="360" height="126">
-        <img class="solo-noche" src="img/logo-delio-caqui.svg" alt="Delio" width="360" height="126">
+        <!-- La imagen es lo que se ve sin JavaScript y lo que leen los buscadores (su "alt").
+             Con JavaScript, js/logo.js dibuja el logo encima, animado y del color del modo en uso. -->
+        <img src="img/logo-delio.svg" alt="Delio" width="360" height="126">
       </h1>
       <canvas class="portada__onda" data-onda-portada aria-hidden="true"></canvas>
       <p class="portada__lema">Taller digital en León, Guanajuato</p>
@@ -391,10 +393,9 @@
     <p><a href="aviso-de-privacidad.html">Aviso de privacidad</a> · © 2026 Delio</p>
   </footer>
 
-  <!-- Muelle: botones fijos en la esquina (modo nocturno y WhatsApp directo) -->
+  <!-- Muelle: el botón fijo de la esquina, para cambiar entre día y noche -->
   <div class="muelle">
     <button class="muelle__boton muelle__boton--tema" type="button" data-tema-boton>Noche</button>
-    <a class="muelle__boton muelle__boton--whatsapp" href="https://wa.me/524793255948?text=Hola%20Diego%2C%20vi%20tu%20p%C3%A1gina%20y%20quiero%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener">WhatsApp</a>
   </div>
 
 </body>

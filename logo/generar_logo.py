@@ -27,7 +27,7 @@ TRAZO = 20        # grosor de los palos verticales
 TRAZO_H = 17      # grosor de las partes horizontales (un poco más delgadas)
 ESPACIO = 12      # separación entre letras
 ESQUINA = 4.5     # radio con que se redondean las esquinas
-PASO = 0.8        # distancia entre puntos de un contorno
+PASO = 1.6        # distancia entre puntos de un contorno (más chico: más fino, pero archivos más pesados)
 
 
 # ---------- Piezas de contorno: listas de puntos (x, y) ----------
@@ -186,17 +186,24 @@ def ondular(x, y):
 
 # ---------- Salida ----------
 
-def logotipo(color):
+MARGEN = 10                 # aire alrededor de la palabra
+ALTO_TOTAL = ALTO + 6       # el punto de la i sube un poco más que la D
+
+
+def letras_rectas():
+    """Las cinco letras todavía sin ondular, y el ancho de la palabra completa."""
     x = 0.0
     letras = []
     for letra in (letra_D, letra_e, letra_l, letra_i, letra_o):
         contornos, ancho = letra(x)
         letras.append(contornos)
         x += ancho + ESPACIO
-    ancho_total = x - ESPACIO
+    return letras, x - ESPACIO
 
-    margen = 10
-    alto_total = ALTO + 6               # el punto de la i sube un poco más que la D
+
+def logotipo(color):
+    letras, ancho_total = letras_rectas()
+    margen, alto_total = MARGEN, ALTO_TOTAL
     caminos = []
     for contornos in letras:
         d = ""
@@ -209,6 +216,30 @@ def logotipo(color):
     vista = f"0 0 {ancho_total + 2 * margen:.0f} {alto_total + 2 * margen:.0f}"
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vista}" role="img" aria-label="Delio">\n'
             f'<g fill="{color}" fill-rule="evenodd">\n' + "\n".join(caminos) + "\n</g>\n</svg>\n")
+
+
+def puntos_para_la_web():
+    """Las letras SIN ondular, como datos para js/logo.js.
+
+    En la portada la onda no viene dibujada: el navegador la calcula en cada
+    cuadro con estos puntos, y por eso las letras se pueden mover.
+    Cada contorno es una lista plana [x0, y0, x1, y1, ...]; la y es la altura
+    sobre la línea base (hacia arriba), igual que aquí.
+    """
+    import json
+
+    letras, ancho_total = letras_rectas()
+    datos = {
+        "ancho": round(ancho_total + 2 * MARGEN),
+        "alto": round(ALTO_TOTAL + 2 * MARGEN),
+        "base": ALTO_TOTAL + MARGEN,          # a qué altura del lienzo queda la línea base
+        "fuerza": ONDA_FUERZA,
+        "largo": ONDA_LARGO,
+        "letras": [[[round(v, 1) for px, py in puntos for v in (px + MARGEN, py)] for puntos in contornos]
+                   for contornos in letras],
+    }
+    return ("// Generado por logo/generar_logo.py. No lo edites a mano: cambia el script y vuelve a correrlo.\n"
+            "window.DELIO_LOGO = " + json.dumps(datos, separators=(",", ":")) + ";\n")
 
 
 def simbolo(color, fondo=None, grosor=9):
@@ -232,3 +263,9 @@ if __name__ == "__main__":
     # con el trazo más grueso para que se distinga en 16 pixeles.
     (AQUI / "delio-favicon.svg").write_text(simbolo(COLORES["tinta"], COLORES["caqui"], grosor=12), encoding="utf-8")
     print("Listo:", ", ".join(sorted(p.name for p in AQUI.glob("*.svg"))))
+
+    # Los puntos para el logo animado de la portada van directo a la carpeta js/ del sitio.
+    destino = AQUI.parent / "js" / "logo-puntos.js"
+    if destino.parent.is_dir():
+        destino.write_text(puntos_para_la_web(), encoding="utf-8", newline="\n")
+        print("Listo:", destino.name)

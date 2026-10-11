@@ -9,7 +9,7 @@ Página principal de una sola pantalla larga (portada, servicios, proyectos, qu�
 | HTML | `index.html`, `aviso-de-privacidad.html` | El contenido. Van en la raíz porque ahí los busca el servidor al entrar al dominio. |
 | CSS | `css/` | La apariencia. |
 | JavaScript | `js/` | El comportamiento. |
-| Imágenes | `img/` | El logotipo y el símbolo en SVG, cada uno en dos colores (tinta para el día, `-caqui` para la noche), el ícono de la pestaña y las imágenes PNG para compartir el enlace. |
+| Imágenes | `img/` | El logotipo y el símbolo en SVG (el símbolo en dos colores: tinta para el día, `-caqui` para la noche), el ícono de la pestaña y las imágenes PNG para compartir el enlace. |
 | Nginx | `nginx/` | La configuración del servidor. No es parte de la página; se copia a `/etc/nginx/`. |
 | Para buscadores | `robots.txt`, `sitemap.xml` | Le dicen a Google y a Bing que pueden leer el sitio y qué páginas tiene. |
 | Python | `logo/` | El script que dibuja los logos, y los logos en SVG y PNG. Solo se usa en tu PC; el servidor no necesita Python. |
@@ -27,6 +27,7 @@ El HTML no trae estilos ni scripts escritos adentro: solo enlaza a los archivos 
 
 - `arranque.js`: marca la página como "con JavaScript" y, si la persona ya había elegido el modo nocturno, lo aplica antes de que se pinte.
 - `ondas.js`: dibuja la onda de la portada y las señales de los mosaicos.
+- `logo.js`: dibuja el logo de la portada con la onda en movimiento. Usa los puntos de `logo-puntos.js`, que no se edita a mano: lo escribe `logo/generar_logo.py`.
 - `carrusel.js`: hace que los carruseles de servicios y proyectos no tengan fin, se deslicen solos poco a poco y respondan a las flechas.
 - `detalle.js`: el selector de "Qué incluye".
 - `contacto.js`: arma el mensaje del formulario y abre WhatsApp.
@@ -120,6 +121,18 @@ sudo certbot --nginx -d delioph.tech -d www.delioph.tech
 
 Certbot edita la configuración por ti para agregar el puerto 443 y renueva el certificado solo.
 
+**7. Activa HTTP/2** (opcional, para que cargue más rápido). Con HTTP/2 el navegador pide todos los archivos por una sola conexión en vez de hacer fila. Abre la configuración que Certbot acaba de editar:
+
+```bash
+sudo nano /etc/nginx/sites-available/delio
+```
+
+En las líneas que dicen `listen 443 ssl` y `listen [::]:443 ssl` agrega la palabra `http2` antes del punto y coma (queda `listen 443 ssl http2;`). Guarda y aplica:
+
+```bash
+sudo nginx -t && sudo systemctl reload nginx
+```
+
 Si después de esto el dominio no abre, revisa que el firewall del VPS (o el del panel de tu proveedor) deje pasar los puertos 80 y 443.
 
 ## Para que la página aparezca en internet
@@ -159,12 +172,26 @@ cd /var/www/delio && sudo git pull
 
 No hace falta reiniciar Nginx. Si no ves el cambio, recarga con Ctrl + F5: el navegador guarda CSS y JS durante una hora.
 
+Si lo que cambió fue `nginx/delio.conf`, `git pull` no basta: ese archivo se usa desde `/etc/nginx/`. Repite el paso 5 (sin el `ln`, que ya existe) y luego los pasos 6 y 7, porque al copiarlo se pierden las líneas de HTTPS que Certbot había agregado. Certbot no pide un certificado nuevo: ofrece reinstalar el que ya tienes.
+
+## Qué tan rápida es
+
+La portada completa pesa unos 90 KB, y comprimida viaja en unos 32 KB: menos que una sola foto. No usa tipografías descargadas, ni bibliotecas, ni rastreadores. Lo que la mantiene así:
+
+- **Compresión** (`gzip`) y **memoria del navegador** (`expires`) en `nginx/delio.conf`.
+- **Los scripts llevan `defer`**: se descargan mientras la página se pinta, sin detenerla.
+- **Un solo logo en la portada:** de noche no se descarga otra imagen; `js/logo.js` lo dibuja del color que toca.
+- **Las animaciones se detienen** cuando salen de pantalla o la pestaña queda en segundo plano.
+
+Para medirla ya publicada: pagespeed.web.dev. Ojo: la velocidad ayuda un poco a la posición en Google, pero no hace que te encuentre antes; eso depende del sitemap y de Search Console (ver arriba).
+
 ## Cambios comunes
 
 - **Agregar un servicio:** en `index.html` son tres lugares: un `<li>` en el carrusel, una `<option>` y un `<article class="incluye">` en "Qué incluye", y una `<option>` en el formulario. La clave (por ejemplo `wifi`) tiene que ser la misma en el mosaico, la opción y el artículo.
 - **Agregar un proyecto:** copia un `<li>` completo del carrusel de proyectos en `index.html` y cambia sus textos.
+- **Cambiar la velocidad del logo animado:** el número `VUELTAS_POR_SEGUNDO` al inicio de `js/logo.js` (más bajo, más lento).
+- **Cambiar la velocidad de las señales de los mosaicos:** los segundos de `animation: correr 7.5s` en `css/componentes.css` (más alto, más lento).
 - **Cambiar la velocidad de los carruseles:** el número `VELOCIDAD` al inicio de `js/carrusel.js` (pixeles por segundo; más alto, más rápido). Para que un carrusel no avance solo, quítale el atributo `data-carrusel-auto` en `index.html`.
 - **Cambiar la señal de un mosaico:** el atributo `data-onda`. Las disponibles están en `js/ondas.js`: `seno`, `am`, `amortiguada`, `cuadrada`, `triangular`, `sierra`, `escalera`, `pulsos`, `latido`.
 - **Cambiar colores:** las variables de `css/base.css`. Hay dos juegos: el de `:root` (día) y el de `:root[data-tema="oscuro"]` (noche).
-- **Cambiar el mensaje del botón de WhatsApp:** está en el enlace del "muelle", al final de `index.html` y de `aviso-de-privacidad.html`, después de `?text=`. Los espacios se escriben `%20`.
-- **Cambiar el logo:** los SVG de `img/` salen de `generar_logo.py`, que está en la carpeta `logo/` junto con los PNG para usar fuera del sitio. Ahí se ajusta qué tan ondulado queda; después se copian los SVG nuevos a `img/` con los mismos nombres.
+- **Cambiar el logo:** los SVG de `img/` salen de `generar_logo.py`, que está en la carpeta `logo/` junto con los PNG para usar fuera del sitio. Ahí se ajusta qué tan ondulado queda y, con `PASO`, cuántos puntos lleva cada letra (menos puntos, archivos más ligeros); después se copia `delio-logotipo-tinta.svg` a `img/logo-delio.svg`. El mismo script actualiza `js/logo-puntos.js`, que es lo que usa el logo animado de la portada.

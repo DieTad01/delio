@@ -13,7 +13,6 @@
   const COPIAS = 2;     // cuántas veces se repite la lista para dar la vuelta sin que se note
 
   const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const pantallaTactil = window.matchMedia('(hover: none)');
 
   document.querySelectorAll('[data-carrusel]').forEach((carrusel) => {
     const pista = carrusel.querySelector('[data-carrusel-pista]');
@@ -168,12 +167,14 @@
       largoVuelta = vuelta();
     }).observe(pista);
 
+    // Dos avisos: cuando asoma el carrusel (para arrancar las señales de inmediato)
+    // y cuando ya se ve casi la mitad (para empezar a deslizarlo).
     new IntersectionObserver((entradas) => {
-      enPantalla = entradas[0].isIntersecting;
-      // En pantallas táctiles no existe "pasar el mouse": las señales corren mientras el carrusel se ve.
-      carrusel.classList.toggle('a-la-vista', enPantalla && pantallaTactil.matches);
+      const entrada = entradas[entradas.length - 1];
+      carrusel.classList.toggle('a-la-vista', entrada.isIntersecting);
+      enPantalla = entrada.intersectionRatio >= 0.4;
       revisar();
-    }, { threshold: 0.4 }).observe(carrusel);
+    }, { threshold: [0, 0.4] }).observe(carrusel);
 
     document.addEventListener('visibilitychange', revisar);
     sinMovimiento.addEventListener('change', revisar);

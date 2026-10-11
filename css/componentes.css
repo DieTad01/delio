@@ -78,8 +78,8 @@
 }
 
 /* ---------- Muelle ----------
-   Los dos botones fijos de la esquina: modo nocturno y WhatsApp.
-   "fixed" los deja pegados a la pantalla aunque la página se deslice. */
+   El botón fijo de la esquina: modo nocturno.
+   "fixed" lo deja pegado a la pantalla aunque la página se deslice. */
 
 .muelle {
   position: fixed;
@@ -110,15 +110,9 @@
   color: var(--fuerte);
 }
 
-.muelle__boton--whatsapp,
 .muelle__boton--tema:hover {
   background: var(--fuerte);
   color: var(--fondo);
-}
-
-.muelle__boton--whatsapp:hover {
-  background: var(--fondo);
-  color: var(--fuerte);
 }
 
 /* Cambiar de modo necesita JavaScript; sin él, el botón no se muestra */
@@ -133,12 +127,7 @@ html:not(.con-js) .muelle__boton--tema {
 .carrusel {
   --mosaico: clamp(232px, 29vw, 372px);   /* ancho de cada mosaico */
   --imagen: var(--mosaico);               /* alto de su imagen; sirve para centrar las flechas */
-  --cerca: 40px;                          /* franja invisible arriba y abajo que cuenta como "cerca" */
   position: relative;
-  /* El relleno agranda la zona que detecta el mouse; el margen negativo
-     evita que ese relleno empuje lo que está arriba y abajo. */
-  padding-block: var(--cerca);
-  margin-block: calc(var(--cerca) * -1);
 }
 
 .carrusel--carteles {
@@ -181,7 +170,7 @@ html:not(.con-js) .muelle__boton--tema {
 
 .carrusel__control {
   position: absolute;
-  top: calc(var(--cerca) + var(--imagen) / 2 - 24px);
+  top: calc(var(--imagen) / 2 - 24px);
   display: none;
   place-items: center;
   width: 48px;
@@ -312,14 +301,13 @@ html:not(.con-js) .muelle__boton--tema {
   }
 }
 
-/* Todas las señales de un carrusel corren juntas cuando el mouse se acerca
-   (o se llega con el teclado). En pantallas táctiles no hay "acercarse":
-   ahí js/carrusel.js pone la clase .a-la-vista cuando el carrusel está en pantalla. */
+/* Las señales corren solas, sin esperar al mouse, mientras su carrusel está
+   en pantalla: js/carrusel.js le pone la clase .a-la-vista al aparecer y se la
+   quita al salir, para no animar lo que nadie ve.
+   El número de segundos es lo que tarda una señal en dar la vuelta: más alto, más lento. */
 @media (prefers-reduced-motion: no-preference) {
-  .carrusel:hover .senal,
-  .carrusel:focus-within .senal,
   .carrusel.a-la-vista .senal {
-    animation: correr 3.2s linear infinite;
+    animation: correr 7.5s linear infinite;
   }
 }
 

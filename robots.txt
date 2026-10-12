@@ -3,5 +3,9 @@
 
 User-agent: *
 Allow: /
+# El servidor del panel no es para buscadores. (panel.html no se lista aquí a
+# propósito: ya trae su propia etiqueta "noindex" y este archivo lo lee cualquiera.)
+Disallow: /api/
+Disallow: /visto
 
 Sitemap: https://delioph.tech/sitemap.xml

@@ -1,0 +1,40 @@
+# delio-panel.service — mantiene corriendo el servidor del panel
+#
+# systemd es el programa de Debian que arranca los servicios al encender el VPS
+# y los vuelve a levantar si se caen. Este archivo le dice cómo correr el panel.
+#
+# Dónde va en el VPS:  /etc/systemd/system/delio-panel.service
+
+[Unit]
+Description=Panel de Delio
+After=network.target
+
+[Service]
+# Corre con un usuario propio y sin privilegios: si alguien encontrara una falla
+# en el panel, no tendría las llaves del servidor completo.
+User=delio
+Group=delio
+# El grupo "adm" es el que puede leer los registros de Nginx (para contar visitas).
+SupplementaryGroups=adm
+
+WorkingDirectory=/var/www/delio/servidor
+# La contraseña del panel: fuera de la carpeta del sitio.
+EnvironmentFile=/etc/delio/panel.env
+
+# gunicorn atiende solo en 127.0.0.1: desde internet nadie le habla directo, únicamente Nginx.
+# Un solo proceso con 8 hilos: suficiente para una persona, y los frenos de intentos viven en memoria.
+ExecStart=/opt/delio/venv/bin/gunicorn --worker-class gthread --workers 1 --threads 8 --bind 127.0.0.1:8765 app:app
+Restart=on-failure
+
+# systemd crea /var/lib/delio para la base de datos, con este usuario como dueño.
+StateDirectory=delio
+StateDirectoryMode=0700
+
+# Candados extra: no puede ganar privilegios ni escribir fuera de su carpeta de datos.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

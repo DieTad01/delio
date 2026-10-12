@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Panel | Delio</title>
+  <!-- Página privada: se les pide a los buscadores que no la muestren -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#a0a084">
+
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/secciones.css">
+  <link rel="stylesheet" href="css/panel.css">
+
+  <script src="js/arranque.js"></script>
+  <script src="js/tema.js" defer></script>
+  <script src="js/panel.js" defer></script>
+</head>
+<body class="panel">
+
+  <!-- Esta página es solo el cascarón: no trae ningún dato. Los datos y las cuentas los pide
+       js/panel.js al servidor (carpeta servidor/), que solo responde con sesión abierta. -->
+
+  <header class="encabezado">
+    <nav class="nav" aria-label="Secciones del panel" data-menu hidden>
+      <a href="#meta">Tu mes</a>
+      <a href="#por-cerrar">Por cerrar</a>
+      <a href="#margenes">Márgenes</a>
+      <a href="#solicitudes">Solicitudes</a>
+      <a href="#ingresos">Ingresos</a>
+      <a href="#visitas">Visitas</a>
+      <a href="#cotizador">Cotizador</a>
+      <a href="#acceso">Acceso</a>
+    </nav>
+    <div class="nav">
+      <a href="./">Ver la página</a>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <noscript><p class="panel__aviso">El panel necesita JavaScript para funcionar.</p></noscript>
+    <p class="panel__aviso" data-aviso hidden></p>
+
+    <!-- ============ ENTRAR ============ -->
+    <section class="seccion" data-entrada hidden>
+      <h1 class="seccion__titulo">Panel</h1>
+      <p class="seccion__entrada">Panel privado de Delio.</p>
+      <form class="formulario" data-entrar>
+        <div class="campo">
+          <label for="clave">Contraseña</label>
+          <input id="clave" name="clave" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="boton boton--lleno boton--ancho" type="submit">Entrar</button>
+        <p class="formulario__estado" data-entrar-estado role="alert"></p>
+      </form>
+    </section>
+
+    <!-- ============ PANEL ============ -->
+    <div data-panel hidden>
+
+      <!-- ============ TU MES ============ -->
+      <section class="seccion" id="meta" aria-labelledby="titulo-meta">
+        <h1 class="seccion__titulo" id="titulo-meta">Tu mes</h1>
+        <p class="seccion__entrada" data-meta-frase></p>
+        <dl class="cifras">
+          <div class="cifra"><dt>Cobrado este mes</dt><dd data-cifra="cobrado">$0</dd></div>
+          <div class="cifra"><dt>Tu meta</dt><dd data-cifra="meta">—</dd></div>
+          <div class="cifra"><dt>Probabilidad de llegar</dt><dd data-cifra="probabilidad">—</dd></div>
+          <div class="cifra"><dt>Te queda de cada $100</dt><dd data-cifra="margen">—</dd></div>
+        </dl>
+        <div class="ancho">
+          <!-- La barra completa es tu meta. Lleno: lo cobrado. Rayado: lo que se espera de lo que tienes abierto. -->
+          <div class="apartado" data-meta-barra></div>
+          <ul class="leyenda">
+            <li class="leyenda__lleno">Cobrado</li>
+            <li class="leyenda__rayado">Esperado de lo que tienes abierto</li>
+            <li class="leyenda__marca">Dónde deberías ir hoy</li>
+          </ul>
+          <p class="explica" data-meta-explica></p>
+
+          <h3 class="subtitulo">Ingresos de los últimos 6 meses</h3>
+          <ol class="columnas" data-columnas></ol>
+        </div>
+      </section>
+
+      <!-- ============ EMBUDO ============ -->
+      <section class="seccion" id="embudo" aria-labelledby="titulo-embudo">
+        <h2 class="seccion__titulo" id="titulo-embudo">Del visitante al cliente</h2>
+        <p class="seccion__entrada">Últimos 30 días. Cada renglón es un paso; donde la barra se encoge más, ahí se te va la gente.</p>
+        <div class="ancho">
+          <ul class="registros" data-lista="embudo"></ul>
+        </div>
+      </section>
+
+      <!-- ============ POR CERRAR ============ -->
+      <section class="seccion" id="por-cerrar" aria-labelledby="titulo-por-cerrar">
+        <h2 class="seccion__titulo" id="titulo-por-cerrar">Lo que está por cerrarse</h2>
+        <p class="seccion__entrada">Cotizaciones pendientes y solicitudes nuevas, con la probabilidad de que se ganen según tu propia historia.</p>
+        <div class="ancho">
+          <ul class="registros" data-lista="por-cerrar"></ul>
+          <p class="explica" data-por-cerrar-explica></p>
+
+          <h3 class="subtitulo">Probabilidad de cierre por servicio</h3>
+          <ul class="registros" data-lista="cierre"></ul>
+          <p class="explica">Se calcula con tus cotizaciones que ya tuvieron desenlace (ganadas o rechazadas). Con pocos casos el porcentaje se acerca a 50% a propósito: ganar una de una no significa que siempre vayas a ganar.</p>
+        </div>
+      </section>
+
+      <!-- ============ MÁRGENES ============ -->
+      <section class="seccion" id="margenes" aria-labelledby="titulo-margenes">
+        <h2 class="seccion__titulo" id="titulo-margenes">Márgenes</h2>
+        <p class="seccion__entrada" data-margen-frase></p>
+        <div class="ancho">
+          <ul class="leyenda">
+            <li class="leyenda__rayado">Lo que te cuesta</li>
+            <li class="leyenda__lleno">Lo que te queda</li>
+            <li class="leyenda__marca">Tu objetivo</li>
+          </ul>
+          <h3 class="subtitulo">Por servicio</h3>
+          <ul class="registros" data-lista="margen-servicio"></ul>
+          <h3 class="subtitulo">Por cotización</h3>
+          <ul class="registros" data-lista="margen-cotizacion"></ul>
+          <p class="explica" data-margen-explica></p>
+
+          <h3 class="subtitulo">Clientes de mensualidad y satisfacción</h3>
+          <ul class="registros" data-lista="mensualidades"></ul>
+        </div>
+      </section>
+
+      <!-- ============ SOLICITUDES ============ -->
+      <section class="seccion" id="solicitudes" aria-labelledby="titulo-solicitudes">
+        <h2 class="seccion__titulo" id="titulo-solicitudes">Solicitudes</h2>
+        <p class="seccion__entrada">Lo que escriben en "Pide tu cotización". Cambia el estado para darles seguimiento.</p>
+        <div class="ancho">
+          <ul class="registros" data-lista="solicitudes"></ul>
+        </div>
+      </section>
+
+      <!-- ============ INGRESOS ============ -->
+      <section class="seccion" id="ingresos" aria-labelledby="titulo-ingresos">
+        <h2 class="seccion__titulo" id="titulo-ingresos">Ingresos sueltos</h2>
+        <p class="seccion__entrada">Anota aquí solo los cobros que no pasaron por el Cotizador. Los del Cotizador ya se cuentan solos al importar.</p>
+        <div class="ancho">
+          <form class="formulario formulario--renglon" data-agregar="ingresos">
+            <div class="campo">
+              <label for="ingreso-fecha">Fecha</label>
+              <input id="ingreso-fecha" name="fecha" type="date" required>
+            </div>
+            <div class="campo">
+              <label for="ingreso-monto">Monto (MXN)</label>
+              <input id="ingreso-monto" name="monto" type="number" min="1" step="0.01" inputmode="decimal" required>
+            </div>
+            <div class="campo">
+              <label for="ingreso-cliente">Cliente</label>
+              <input id="ingreso-cliente" name="cliente" type="text" maxlength="80">
+            </div>
+            <div class="campo">
+              <label for="ingreso-servicio">Servicio</label>
+              <!-- Las opciones las pone js/panel.js con los servicios que están en index.html -->
+              <select id="ingreso-servicio" name="servicio" data-servicios>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="campo campo--largo">
+              <label for="ingreso-concepto">Concepto <span class="campo__opcional">(opcional)</span></label>
+              <input id="ingreso-concepto" name="concepto" type="text" maxlength="200">
+            </div>
+            <button class="boton boton--lleno campo--largo" type="submit">Agregar ingreso</button>
+          </form>
+          <ul class="registros" data-lista="ingresos"></ul>
+        </div>
+      </section>
+
+      <!-- ============ OBJETIVOS Y NOTAS ============ -->
+      <section class="seccion" id="objetivos" aria-labelledby="titulo-objetivos">
+        <h2 class="seccion__titulo" id="titulo-objetivos">Objetivos y notas</h2>
+        <p class="seccion__entrada">Tu lista de metas y apuntes del negocio. No anotes aquí contraseñas ni datos personales de clientes.</p>
+        <div class="ancho">
+          <form class="formulario formulario--renglon" data-agregar="objetivos">
+            <div class="campo campo--largo">
+              <label for="objetivo-titulo">Objetivo</label>
+              <input id="objetivo-titulo" name="titulo" type="text" maxlength="120" required>
+            </div>
+            <div class="campo">
+              <label for="objetivo-meta">Cómo se mide <span class="campo__opcional">(opcional)</span></label>
+              <input id="objetivo-meta" name="meta" type="text" maxlength="400">
+            </div>
+            <div class="campo">
+              <label for="objetivo-limite">Fecha límite <span class="campo__opcional">(opcional)</span></label>
+              <input id="objetivo-limite" name="limite" type="date">
+            </div>
+            <button class="boton boton--lleno campo--largo" type="submit">Agregar objetivo</button>
+          </form>
+          <ul class="registros" data-lista="objetivos"></ul>
+
+          <form class="formulario apartado" data-agregar="notas">
+            <div class="campo">
+              <label for="nota-texto">Nota</label>
+              <textarea id="nota-texto" name="texto" rows="3" maxlength="2000" required></textarea>
+            </div>
+            <button class="boton boton--lleno boton--ancho" type="submit">Guardar nota</button>
+          </form>
+          <ul class="registros" data-lista="notas"></ul>
+        </div>
+      </section>
+
+      <!-- ============ VISITAS ============ -->
+      <section class="seccion" id="visitas" aria-labelledby="titulo-visitas">
+        <h2 class="seccion__titulo" id="titulo-visitas">Visitas</h2>
+        <p class="seccion__entrada">Se cuentan con los registros del servidor: sin cookies y sin servicios de fuera. No incluye buscadores ni robots.</p>
+        <div class="ancho">
+          <p class="registros__vacio" data-visitas-problema hidden></p>
+          <h3 class="subtitulo">Por día</h3>
+          <ul class="registros" data-lista="visitas"></ul>
+          <h3 class="subtitulo">De dónde llegan</h3>
+          <ul class="registros" data-lista="origenes"></ul>
+        </div>
+      </section>
+
+      <!-- ============ COTIZADOR ============ -->
+      <section class="seccion" id="cotizador" aria-labelledby="titulo-cotizador">
+        <h2 class="seccion__titulo" id="titulo-cotizador">Datos del Cotizador</h2>
+        <p class="seccion__entrada">Las cotizaciones, los clientes de mensualidad y tus tarifas vienen de tu Cotizador. Sube aquí el archivo para traerlos o actualizarlos.</p>
+        <div class="ancho">
+          <p class="registros__vacio" data-importacion></p>
+          <form class="formulario apartado" data-importar>
+            <div class="campo">
+              <label for="archivo">Archivo del Cotizador (.json)</label>
+              <input id="archivo" name="archivo" type="file" accept="application/json,.json" required>
+            </div>
+            <button class="boton boton--lleno boton--ancho" type="submit">Importar</button>
+            <p class="formulario__estado" data-importar-estado role="status"></p>
+            <p class="formulario__nota">Importar reemplaza lo que se haya traído antes. Los teléfonos y correos de clientes no se guardan.</p>
+          </form>
+        </div>
+      </section>
+
+      <!-- ============ ACCESO ============ -->
+      <section class="seccion" id="acceso" aria-labelledby="titulo-acceso">
+        <h2 class="seccion__titulo" id="titulo-acceso">Acceso</h2>
+        <p class="seccion__entrada">Quién ha entrado al panel y desde dónde. Si ves algo que no reconoces, cierra las demás sesiones y cambia tu contraseña.</p>
+        <div class="ancho">
+          <h3 class="subtitulo">Sesiones abiertas</h3>
+          <ul class="registros" data-lista="sesiones"></ul>
+          <p class="formulario__nota formulario__nota--izquierda">Una sesión se cierra sola tras 12 horas sin usarse, o a los 7 días.</p>
+          <h3 class="subtitulo">Últimos movimientos</h3>
+          <ul class="registros" data-lista="bitacora"></ul>
+        </div>
+        <p class="seccion__cierre seccion__cierre--varios">
+          <button class="boton boton--marco" type="button" data-cerrar-otras>Cerrar las demás sesiones</button>
+          <a class="boton boton--marco" href="/api/respaldo" download>Descargar respaldo</a>
+          <button class="boton boton--lleno" type="button" data-salir>Cerrar sesión</button>
+        </p>
+      </section>
+    </div>
+
+  </main>
+
+  <footer class="pie">
+    <p class="pie__marca"><img class="solo-dia" src="img/simbolo-delio.svg" alt="" width="28" height="28"><img class="solo-noche" src="img/simbolo-delio-caqui.svg" alt="" width="28" height="28">Delio · Panel privado</p>
+  </footer>
+
+  <div class="muelle">
+    <button class="muelle__boton muelle__boton--tema" type="button" data-tema-boton>Noche</button>
+  </div>
+
+</body>
+</html>

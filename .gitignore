@@ -4,6 +4,11 @@ __pycache__/
 # Configuración local de Claude (solo sirve en esta PC)
 .claude/
 
+# Panel: la base de datos y los ajustes de tu PC (contraseña y llave de la API).
+# Nunca deben subirse a GitHub.
+servidor/datos/
+servidor/local.env
+
 # Basura del sistema
 Thumbs.db
 .DS_Store

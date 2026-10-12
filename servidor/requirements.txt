@@ -1,0 +1,5 @@
+# Bibliotecas que necesita el servidor del panel.
+# Se instalan con:  pip install -r requirements.txt
+
+flask>=3.1        # recibe las peticiones y responde
+gunicorn>=23      # mantiene el programa corriendo en el VPS (en Windows no hace falta)

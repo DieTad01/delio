@@ -1,0 +1,374 @@
+/* =========================================================
+   panel.css — el panel privado (panel.html)
+   Usa los mismos colores, botones y campos del sitio; aquí
+   solo está lo que el panel tiene de propio: las cifras, las
+   gráficas (barras y columnas) y las listas de registros.
+
+   Las gráficas son cajas de CSS, sin bibliotecas. js/panel.js
+   les pone el tamaño con variables (--ancho, --desde, --alto).
+   ========================================================= */
+
+/* Lo que tiene el atributo "hidden" no se ve, aunque otra regla le ponga display.
+   js/panel.js enseña y esconde las partes del panel con ese atributo. */
+.panel [hidden] {
+  display: none !important;
+}
+
+/* La columna del panel: igual de ancha que la lista de "Qué incluye" */
+.ancho {
+  max-width: calc(var(--ancho-lista) + 2 * var(--margen));
+  margin-inline: auto;
+  padding-inline: var(--margen);
+}
+
+.panel .formulario,
+.panel .registros {
+  max-width: none;
+  padding-inline: 0;
+}
+
+.panel [data-entrar] {
+  max-width: calc(var(--ancho-formulario) + 2 * var(--margen));
+  padding-inline: var(--margen);
+}
+
+.panel__aviso {
+  padding: 16px var(--margen);
+  border-bottom: var(--linea) solid var(--tinta);
+  font-weight: 700;
+  text-align: center;
+}
+
+.subtitulo {
+  margin-top: 40px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.apartado {
+  margin-top: 28px;
+}
+
+/* El renglón que explica una gráfica con palabras */
+.explica {
+  margin-top: 12px;
+  color: var(--tinta-suave);
+  font-size: 0.875rem;
+}
+
+.explica:empty {
+  display: none;
+}
+
+/* Botón que se ve como enlace (acciones pequeñas: borrar) */
+.enlace {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: var(--linea);
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+/* ---------- Cifras ---------- */
+
+.cifras {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  max-width: calc(var(--ancho-lista) + 2 * var(--margen));
+  margin-inline: auto;
+  padding-inline: var(--margen);
+}
+
+.cifra {
+  padding: 16px 16px 16px 0;
+  border-top: var(--linea) solid var(--tinta);
+}
+
+.cifra dt {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.cifra dd {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  /* números del mismo ancho: las cifras no "bailan" al cambiar */
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Barra ----------
+   Una caja con pedazos adentro. Cada pedazo dice dónde empieza (--desde)
+   y cuánto mide (--ancho), en porcentaje del total de la barra.
+   Lleno = lo que ya es tuyo. Rayado = lo que cuesta o lo que todavía no es seguro. */
+
+.barra {
+  position: relative;
+  height: 16px;
+  border: var(--linea) solid var(--tinta);
+  background: var(--fondo-hundido);
+}
+
+.barra--alta {
+  height: 28px;
+}
+
+.barra__parte {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--desde, 0%);
+  width: var(--ancho, 0%);
+}
+
+.barra__parte--lleno {
+  background: var(--fuerte);
+}
+
+.barra__parte--rayado {
+  background: repeating-linear-gradient(135deg, var(--fuerte) 0 1.6px, transparent 1.6px 6px);
+}
+
+/* Una raya vertical que sobresale: marca un objetivo o una referencia */
+.barra__marca {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: var(--desde, 0%);
+  width: 3px;
+  margin-left: -1.5px;
+  background: var(--tinta);
+  outline: 2px solid var(--fondo);
+}
+
+/* Lo que significa cada dibujo */
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin-top: 12px;
+  font-size: 0.8125rem;
+}
+
+.leyenda li::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 10px;
+  margin-right: 6px;
+  border: 1px solid var(--tinta);
+  vertical-align: -1px;
+}
+
+.leyenda__lleno::before {
+  background: var(--fuerte);
+}
+
+.leyenda__rayado::before {
+  background: repeating-linear-gradient(135deg, var(--fuerte) 0 1.6px, transparent 1.6px 5px);
+}
+
+.leyenda .leyenda__marca::before {
+  width: 3px;
+  height: 14px;
+  border: 0;
+  background: var(--tinta);
+  vertical-align: -3px;
+}
+
+/* ---------- Columnas (ingresos por mes) ---------- */
+
+.columnas {
+  --nombre: 32px;   /* alto del renglón con el nombre del mes */
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.columnas__mes {
+  min-width: 0;
+  text-align: center;
+}
+
+/* El espacio donde crece la columna: 200px de alto, la columna más alta mide 170 */
+.columnas__espacio {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 200px;
+  border-bottom: var(--linea) solid var(--tinta);
+}
+
+.columnas__valor {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.columnas__barra {
+  height: var(--alto, 0px);
+  min-height: 2px;
+  background: var(--fuerte);
+}
+
+.columnas__mes--actual .columnas__barra {
+  background: repeating-linear-gradient(135deg, var(--fuerte) 0 1.6px, transparent 1.6px 6px);
+  border: var(--linea) solid var(--fuerte);
+  border-bottom: 0;
+}
+
+.columnas__nombre {
+  height: var(--nombre);
+  font-size: 0.8125rem;
+  line-height: var(--nombre);
+}
+
+/* La línea de la meta cruza todas las columnas */
+.columnas__meta {
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--nombre) + var(--alto, 0px));
+  left: 0;
+  border-top: 2px dashed var(--tinta);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: right;
+  pointer-events: none;
+}
+
+/* ---------- Formularios de un renglón (ingresos, objetivos) ---------- */
+
+.formulario--renglon {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+}
+
+.campo--largo {
+  grid-column: 1 / -1;
+}
+
+.campo input[type="file"] {
+  padding: 8px;
+}
+
+/* ---------- Registros ---------- */
+
+.registros {
+  margin-top: 28px;
+  border-top: var(--linea) solid var(--tinta);
+}
+
+.subtitulo + .registros {
+  margin-top: 12px;
+}
+
+.registro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 16px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: var(--linea) solid var(--tinta);
+}
+
+.registro__titulo {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.registro__dato {
+  justify-self: end;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.registro__texto,
+.registro__barra {
+  grid-column: 1 / -1;
+}
+
+.registro__texto {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.registro__barra {
+  margin-block: 6px 4px;
+}
+
+.registro__pie {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1 / -1;
+  gap: 4px 16px;
+  align-items: center;
+  color: var(--tinta-suave);
+  font-size: 0.875rem;
+}
+
+.registro__pie select {
+  min-height: 32px;
+  padding: 2px 8px;
+  border: var(--linea) solid var(--tinta);
+  border-radius: 0;
+  background: var(--fondo-hundido);
+  color: var(--tinta);
+  font-weight: 700;
+}
+
+/* Lo que ya no cuenta (una solicitud perdida, un servicio sin datos) se ve apagado */
+.registro--apagado .registro__titulo,
+.registro--apagado .registro__texto,
+.registro--apagado .registro__dato {
+  opacity: 0.6;
+}
+
+.registros__vacio {
+  padding: 12px 0;
+  border-bottom: var(--linea) solid var(--tinta);
+  color: var(--tinta-suave);
+}
+
+.registros + .formulario__nota {
+  margin-top: 12px;
+}
+
+.formulario__nota--izquierda {
+  margin-top: 12px;
+  text-align: left;
+}
+
+/* Varios botones en el cierre de una sección: en fila, y se apilan si no caben */
+.seccion__cierre--varios {
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+/* ---------- Pantallas angostas ---------- */
+
+@media (max-width: 599px) {
+  .formulario--renglon {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .columnas {
+    gap: 6px;
+  }
+
+  .columnas__valor {
+    font-size: 0.6875rem;
+  }
+}

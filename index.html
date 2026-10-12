@@ -344,7 +344,8 @@
     </section>
 
     <!-- ============ CONTACTO ============
-         El formulario no guarda nada: arma un mensaje y abre WhatsApp (js/contacto.js).
+         El formulario arma un mensaje y abre WhatsApp (js/contacto.js). Además guarda
+         una copia de la solicitud en el servidor, para verla en el panel (panel.html).
          Sin JavaScript también funciona: el navegador manda el campo "text" a wa.me. -->
     <section class="seccion" id="contacto" aria-labelledby="titulo-contacto">
       <h2 class="seccion__titulo" id="titulo-contacto">Pide tu cotización</h2>
@@ -358,6 +359,10 @@
         <div class="campo">
           <label for="negocio">Negocio o empresa <span class="campo__opcional">(opcional)</span></label>
           <input id="negocio" name="negocio" type="text" autocomplete="organization">
+        </div>
+        <div class="campo">
+          <label for="contacto-dato">Teléfono o correo <span class="campo__opcional">(opcional)</span></label>
+          <input id="contacto-dato" name="contacto" type="text" maxlength="80" autocomplete="tel">
         </div>
         <div class="campo">
           <label for="servicio">Servicio</label>
@@ -380,7 +385,7 @@
         <button class="boton boton--lleno boton--ancho" type="submit">Enviar por WhatsApp</button>
         <p class="formulario__estado" data-contacto-estado role="status"></p>
 
-        <p class="formulario__nota">Tus datos solo se usan para responderte. Lee el <a href="aviso-de-privacidad.html">aviso de privacidad</a>.</p>
+        <p class="formulario__nota">Al enviar, tu solicitud también se guarda para darle seguimiento. Tus datos solo se usan para responderte. Lee el <a href="aviso-de-privacidad.html">aviso de privacidad</a>.</p>
         <p class="formulario__nota">Cotización válida por 15 días · 30% de anticipo y el resto a la entrega · 30 días de garantía en mano de obra.</p>
         <p class="formulario__nota">¿Prefieres otro medio? Escribe a <a href="mailto:dietadhdez@gmail.com">dietadhdez@gmail.com</a> o llama al <a href="tel:+524793255948">479 325 5948</a>.</p>
       </form>

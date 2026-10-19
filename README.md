@@ -60,6 +60,19 @@ y abre `http://localhost:4173`.
 
 ## Subirlo al VPS
 
+### La forma rápida: un solo comando
+
+En hPanel → Dominios → delioph.tech → DNS, pon dos registros tipo A, `@` y `www`, con la IP de tu VPS. Luego, en la terminal del VPS como root (hPanel → VPS → Terminal):
+
+```bash
+curl -fsSLo instalar.sh https://raw.githubusercontent.com/DieTad01/delio/main/deploy/instalar.sh && bash instalar.sh
+```
+
+`deploy/instalar.sh` instala Nginx, Python y Certbot, descarga este repositorio en `/var/www/delio`, te pide la contraseña del panel (la guarda en `/etc/delio/panel.env`, que solo lee root), arranca el panel, configura Nginx y el firewall, y activa HTTPS. Si el VPS ya tiene otros sitios, no los toca. Para actualizar después: sube los cambios a GitHub y vuelve a correr `bash instalar.sh`.
+
+Abajo están los mismos pasos a mano, por si quieres entender qué hace cada uno.
+
+
 Estos pasos son para Debian. No se han probado en tu servidor; si algo no coincide, el mensaje de error casi siempre dice qué falta.
 
 Si entras al VPS como `root`, escribe los comandos sin `sudo` (en un Debian recién instalado `sudo` puede no existir).
